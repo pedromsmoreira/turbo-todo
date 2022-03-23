@@ -8,11 +8,11 @@ import (
 	"github.com/pedromsmoreira/turbo-todo/api/models"
 )
 
-func FromModelToDto(model *models.Todo) (*dto.Todo, error) {
+func FromModelToDto(model *models.Todo) (*dto.TodoData, error) {
 	return nil, errors.New("mapping error from model to dto")
 }
 
-func FromDtoToModel(dto *dto.Todo) (*models.Todo, error) {
+func FromDtoToModel(dto *dto.TodoData) (*models.Todo, error) {
 	return nil, errors.New("mapping error from dto to model")
 }
 

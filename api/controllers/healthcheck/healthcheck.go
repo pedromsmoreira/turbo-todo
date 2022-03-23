@@ -1,4 +1,4 @@
-package controllers
+package healthcheck
 
 import (
 	"net/http"
