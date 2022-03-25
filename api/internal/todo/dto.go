@@ -1,6 +1,6 @@
-package dto
+package todo
 
-type TodoData struct {
+type TodoDto struct {
 	Id          string          `json:"id"`
 	Attributes  *TodoAttributes `json:"attributes"`
 	DateCreated string          `json:"date_created"`
@@ -15,15 +15,15 @@ type TodoAttributes struct {
 }
 
 type CreateTodoRequest struct {
-	Data *TodoData `json:"data"`
+	Data *TodoDto `json:"data"`
 }
 
 type UpdateTodo struct {
-	Data *TodoData `json:"data"`
+	Data *TodoDto `json:"data"`
 }
 
 type ApiResponse struct {
-	Todo *TodoData `json:"data"`
+	Todo *TodoDto `json:"data"`
 }
 
 type ApiError struct {

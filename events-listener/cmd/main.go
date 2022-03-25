@@ -1,4 +1,4 @@
-package eventslistener
+package main
 
 import "fmt"
 

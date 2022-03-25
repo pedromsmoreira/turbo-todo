@@ -1,13 +1,13 @@
-package models
+package todo
 
-type Todo struct {
+type todo struct {
 	Id          string
-	Attributes  *Attributes
+	Attributes  *attributes
 	DateCreated string
 	Version     int64
 }
 
-type Attributes struct {
+type attributes struct {
 	Title   string
 	Content string
 	Tags    []string

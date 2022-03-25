@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/gin-gonic/gin"
-	"github.com/pedromsmoreira/turbo-todo/api/controllers/healthcheck"
+	"github.com/pedromsmoreira/turbo-todo/api/internal/healthcheck"
 )
 
 func main() {
