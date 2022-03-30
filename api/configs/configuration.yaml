@@ -7,5 +7,6 @@ messaging:
   port: 4222
 
 database:
+  host: "localhost:26257"
   user: "admin"
   pass: "password"
