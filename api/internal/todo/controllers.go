@@ -6,8 +6,41 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Get(c *gin.Context) {
+type TodoController struct {
+	tcsvc *TodoService
+}
+
+func NewTodoController(tcsvc *TodoService) *TodoController {
+	return &TodoController{
+		tcsvc: tcsvc,
+	}
+}
+func (tc *TodoController) List(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
-		"message": "pong",
+		"message": "List",
+	})
+}
+
+func (tc *TodoController) Get(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Get by id",
+	})
+}
+
+func (tc *TodoController) Create(c *gin.Context) {
+	c.JSON(http.StatusAccepted, gin.H{
+		"message": "Create",
+	})
+}
+
+func (tc *TodoController) Update(c *gin.Context) {
+	c.JSON(http.StatusAccepted, gin.H{
+		"message": "Update",
+	})
+}
+
+func (tc *TodoController) Delete(c *gin.Context) {
+	c.JSON(http.StatusNoContent, gin.H{
+		"message": "Delete",
 	})
 }
