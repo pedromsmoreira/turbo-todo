@@ -27,7 +27,8 @@ func (imr *inMemoryTodoRepository) Add(todo *todo) (*todo, error) {
 	return nil, errors.New("not implemented")
 }
 
-type CockroachDbTodoRepository struct{}
+type CockroachDbTodoRepository struct {
+}
 
 func NewCockroachDbTodoRepository(username string, password string) TodoRepository {
 	return &CockroachDbTodoRepository{}

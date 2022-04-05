@@ -16,6 +16,7 @@ func NewTodoController(tcsvc *TodoService) *TodoController {
 	}
 }
 func (tc *TodoController) List(c *gin.Context) {
+
 	c.JSON(http.StatusOK, gin.H{
 		"message": "List",
 	})

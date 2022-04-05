@@ -17,6 +17,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("error creating or updating the schema: %v", err)
 	}
+
 	r := gin.Default()
 	r.SetTrustedProxies(nil)
 	r.GET("/v1/ping", healthcheck.Ping)
