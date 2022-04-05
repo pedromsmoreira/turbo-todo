@@ -1,7 +1,7 @@
 .PHONY: api events-app
 
 infrastructure:
-	@docker-compose up -d nats cockroachdb 
+	@docker-compose up -d nats cockroachdb
 
 api:
 	@docker-compose up --build --abort-on-container-exit --exit-code-from api api

@@ -1,0 +1,11 @@
+server:
+  host: "localhost"
+  port: 5001
+
+messaging:
+  host: "localhost"
+  port: 4222
+
+database:
+  user: "admin"
+  pass: "password"
