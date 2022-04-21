@@ -1,4 +1,4 @@
-package crosscutting
+package errors
 
 type ProblemDetails struct {
 	Type          string         `json:"type"`
@@ -12,4 +12,8 @@ type ProblemDetails struct {
 type InvalidParam struct {
 	Name   string `json:"name"`
 	Reason string `json:"reason"`
+}
+
+func FromErrorToProblemDetails(err error) *ProblemDetails {
+	return &ProblemDetails{}
 }

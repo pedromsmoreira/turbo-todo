@@ -1,4 +1,4 @@
-package crosscutting
+package errors
 
 import (
 	"fmt"

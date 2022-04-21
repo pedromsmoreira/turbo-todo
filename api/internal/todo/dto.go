@@ -23,9 +23,5 @@ type UpdateTodo struct {
 }
 
 type ApiResponse struct {
-	Todo *TodoDto `json:"data"`
-}
-
-type ApiError struct {
-	Errors []string `json:"errors,omitempty"`
+	Data *TodoDto `json:"data"`
 }
