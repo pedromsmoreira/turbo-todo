@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/pedromsmoreira/turbo-todo/api/internal/errors"
+	"github.com/pedromsmoreira/turbo-todo/internal/api/apierrors"
 )
 
 type TodoController struct {
@@ -29,14 +29,14 @@ func (tc *TodoController) Get(c *gin.Context) {
 	todo, err := tc.tcsvc.Get(id)
 
 	if err != nil {
-		pd := &errors.ProblemDetails{}
+		pd := &apierrors.ProblemDetails{}
 		c.JSON(http.StatusBadRequest, pd)
 	}
 
 	dto, err := FromModelToDto(todo)
 
 	if err != nil {
-		pd := &errors.ProblemDetails{}
+		pd := &apierrors.ProblemDetails{}
 		c.JSON(http.StatusInternalServerError, pd)
 	}
 

@@ -1,4 +1,4 @@
-package errors
+package apierrors
 
 type ProblemDetails struct {
 	Type          string         `json:"type"`

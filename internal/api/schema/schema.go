@@ -8,7 +8,7 @@ import (
 
 	"github.com/cockroachdb/cockroach-go/v2/crdb/crdbpgx"
 	"github.com/jackc/pgx/v4"
-	"github.com/pedromsmoreira/turbo-todo/api/configs"
+	"github.com/pedromsmoreira/turbo-todo/internal/api/configs"
 )
 
 func CreateSchema(cfg *configs.Config) error {

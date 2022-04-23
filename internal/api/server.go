@@ -5,10 +5,10 @@ import (
 	"log"
 
 	"github.com/gin-gonic/gin"
-	"github.com/pedromsmoreira/turbo-todo/api/configs"
-	"github.com/pedromsmoreira/turbo-todo/api/internal/healthcheck"
-	"github.com/pedromsmoreira/turbo-todo/api/internal/todo"
-	"github.com/pedromsmoreira/turbo-todo/api/schema"
+	"github.com/pedromsmoreira/turbo-todo/internal/api/configs"
+	"github.com/pedromsmoreira/turbo-todo/internal/api/healthcheck"
+	"github.com/pedromsmoreira/turbo-todo/internal/api/schema"
+	"github.com/pedromsmoreira/turbo-todo/internal/api/todo"
 )
 
 func main() {
