@@ -12,7 +12,7 @@ import (
 )
 
 func CreateSchema(cfg *configs.Config) error {
-	connstr := fmt.Sprintf("postgresql://root@%v/defaultdb?sslmode=disable", cfg.Database.Host)
+	connstr := fmt.Sprintf("postgresql://root@%s/defaultdb?sslmode=disable", cfg.Database.Host)
 	config, err := pgx.ParseConfig(connstr)
 	config.Database = "defaultdb"
 	if err != nil {

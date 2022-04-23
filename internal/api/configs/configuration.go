@@ -11,22 +11,28 @@ import (
 var config embed.FS
 
 type Config struct {
-	Server struct {
-		Host string `yaml:"host"`
-		Port string `yaml:"port"`
-	} `yaml:"server"`
-	Messaging struct {
-		Host string `yaml:"host"`
-		Port string `yaml:"port"`
-	} `yaml:"messaging"`
-	Database struct {
-		Host     string `yaml:"host"`
-		Username string `yaml:"user"`
-		Password string `yaml:"pass"`
-	} `yaml:"database"`
+	Server    Server    `yaml:"server"`
+	Messaging Messaging `yaml:"messaging"`
+	Database  Database  `yaml:"database"`
 }
 
-func NewConfig() *Config {
+type Server struct {
+	Host string `yaml:"host"`
+	Port string `yaml:"port"`
+}
+
+type Messaging struct {
+	Host string `yaml:"host"`
+	Port string `yaml:"port"`
+}
+
+type Database struct {
+	Host     string `yaml:"host"`
+	Username string `yaml:"user"`
+	Password string `yaml:"pass"`
+}
+
+func NewConfigFromFile() *Config {
 	return readConfig()
 }
 

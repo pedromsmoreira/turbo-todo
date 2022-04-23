@@ -1,32 +1,38 @@
-package main
+package api
 
 import (
+	"context"
 	"fmt"
-	"log"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/pedromsmoreira/turbo-todo/internal/api/configs"
 	"github.com/pedromsmoreira/turbo-todo/internal/api/healthcheck"
-	"github.com/pedromsmoreira/turbo-todo/internal/api/schema"
 	"github.com/pedromsmoreira/turbo-todo/internal/api/todo"
 )
 
-func main() {
-	cfg := configs.NewConfig()
-	err := schema.CreateSchema(cfg)
-	if err != nil {
-		log.Fatalf("error creating or updating the schema: %v", err)
-	}
+type Server struct {
+	Cfg    *configs.Config
+	Router *gin.Engine
+	server *http.Server
+}
 
-	r := gin.Default()
-	r.SetTrustedProxies(nil)
-	r.GET("/v1/ping", healthcheck.Ping)
+func NewServer(cfg *configs.Config) *Server {
+	return &Server{
+		Cfg:    cfg,
+		Router: gin.Default(),
+	}
+}
+
+func (s *Server) Start() error {
+	s.Router.SetTrustedProxies(nil)
+	s.Router.GET("/v1/ping", healthcheck.Ping)
 
 	todorepo := todo.NewInMemoryTodoRepository()
 	todosvc := todo.NewTodoService(todorepo)
 	tc := todo.NewTodoController(todosvc)
 
-	v1 := r.Group("/v1")
+	v1 := s.Router.Group("/v1")
 	{
 		v1.GET("/todos", tc.List)
 		v1.GET("/todos/:id", tc.Get)
@@ -35,9 +41,16 @@ func main() {
 		v1.DELETE("/todos/:id", tc.Delete)
 	}
 
-	err = r.Run(fmt.Sprintf("%v:%v", cfg.Server.Host, cfg.Server.Port))
-
-	if err != nil {
-		log.Fatalf("Error starting server: %v", err)
+	srv := &http.Server{
+		Addr:    fmt.Sprintf("%s:%s", s.Cfg.Server.Host, s.Cfg.Server.Port),
+		Handler: s.Router,
 	}
+
+	s.server = srv
+
+	return s.server.ListenAndServe()
+}
+
+func (s *Server) Shutdown(ctx context.Context) error {
+	return s.server.Shutdown(ctx)
 }
