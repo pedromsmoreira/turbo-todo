@@ -5,17 +5,35 @@ import (
 	"testing"
 )
 
-func TestServerHealthcheckIsWorking(t *testing.T) {
-	given, when, then := newApiStage()
+func TestHealthschecks(t *testing.T) {
+	t.Run("status endpoint returns up", func(t *testing.T) {
+		given, when, then := newApiStage(t, "localhost:5000")
 
-	given.
-		anHttpClientIsCreated()
+		given.
+			anHttpClientIsCreated()
 
-	when.
-		healthEndpointIsQueried()
+		when.
+			statusEndpointIsQueried()
 
-	then.
-		shouldReturnStatusCode(http.StatusOK).
-		and().
-		returnsStatus("up")
+		then.
+			shouldReturnStatusCode(http.StatusOK).
+			and().
+			returnsStatus("up")
+	})
+
+	t.Run("ping endpoint returns pong", func(t *testing.T) {
+		given, when, then := newApiStage(t, "localhost:5000")
+
+		given.
+			anHttpClientIsCreated()
+
+		when.
+			pingEndpointIsQueried()
+
+		then.
+			shouldReturnStatusCode(http.StatusOK).
+			and().
+			returnsPong()
+	})
+
 }

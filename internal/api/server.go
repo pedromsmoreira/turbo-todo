@@ -26,7 +26,8 @@ func NewServer(cfg *configs.Config) *Server {
 
 func (s *Server) Start() error {
 	s.Router.SetTrustedProxies(nil)
-	s.Router.GET("/v1/ping", healthcheck.Ping)
+	s.Router.GET("/ping", healthcheck.Ping)
+	s.Router.GET("/status", healthcheck.Status)
 
 	todorepo := todo.NewInMemoryTodoRepository()
 	todosvc := todo.NewTodoService(todorepo)

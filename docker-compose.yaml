@@ -1,25 +1,25 @@
 version: "3.8"
 services:
-  api:
-    image: turbo-todo-api:${RELEASE_VERSION}
-    build:
-      context: .
-      dockerfile: deploy/docker/Dockerfile
-      target: api
-    ports:
-      - "5000:5000"
+  # api:
+  #   image: turbo-todo-api:${RELEASE_VERSION}
+  #   build:
+  #     context: .
+  #     dockerfile: deploy/docker/Dockerfile
+  #     target: api
+  #   ports:
+  #     - "5000:5000"
 
-  events-listener:
-    image: turbo-todo-events-listener:${RELEASE_VERSION}
-    build:
-      context: .
-      dockerfile: deploy/docker/Dockerfile
-      target: eventslistener
-    ports:
-      - "5001:5001"
+  # events-listener:
+  #   image: turbo-todo-events-listener:${RELEASE_VERSION}
+  #   build:
+  #     context: .
+  #     dockerfile: deploy/docker/Dockerfile
+  #     target: eventslistener
+  #   ports:
+  #     - "5001:5001"
 
   nats:
-    image: nats:2.7.4
+    image: nats:2.7.4-alpine
     ports:
       - "4222:4222"
       - "8222:8222"

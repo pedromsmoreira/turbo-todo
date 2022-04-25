@@ -22,15 +22,17 @@ var (
 func TestMain(m *testing.M) {
 	cfg := &configs.Config{
 		Database: *(&configs.Database{
-			Host: "localhost:1000",
+			Host:     "localhost:26257",
+			Username: "admin",
+			Password: "password",
 		}),
 		Server: *(&configs.Server{
 			Host: "localhost",
-			Port: "1001",
+			Port: "5000",
 		}),
 		Messaging: *(&configs.Messaging{
 			Host: "localhost",
-			Port: "1002",
+			Port: "4222",
 		}),
 	}
 	err := schema.CreateSchema(cfg)
@@ -38,9 +40,7 @@ func TestMain(m *testing.M) {
 		log.Fatalf("error creating or updating the schema: %v", err)
 	}
 
-	server := &Server{
-		Cfg: cfg,
-	}
+	server := NewServer(cfg)
 	go func() {
 		if err := server.Start(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("listen: %s\n", err)
