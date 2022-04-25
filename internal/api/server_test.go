@@ -3,6 +3,8 @@ package api
 import (
 	"net/http"
 	"testing"
+
+	"github.com/google/uuid"
 )
 
 func TestHealthschecks(t *testing.T) {
@@ -35,5 +37,24 @@ func TestHealthschecks(t *testing.T) {
 			and().
 			returnsPong()
 	})
+}
 
+func TestTodoEndpoints(t *testing.T) {
+	t.Run("list returns array with one todo item", func(t *testing.T) {
+		given, when, then := newApiStage(t, "localhost:5000")
+		id := uuid.New().String()
+
+		given.
+			anHttpClientIsCreated().
+			and().
+			todoIsCreatedForId(id)
+
+		when.
+			listEndpointIsQueriedForId(id)
+
+		then.
+			shouldReturnStatusCode(http.StatusOK).
+			and().
+			shouldListWithOneItem()
+	})
 }

@@ -91,3 +91,15 @@ func (as *apiStage) returnsStatus(expStatus string) *apiStage {
 	require.Equal(as.t, expStatus, st.Status)
 	return as
 }
+
+func (as *apiStage) todoIsCreatedForId(id string) *apiStage {
+	return as
+}
+
+func (as *apiStage) listEndpointIsQueriedForId(id string) *apiStage {
+	return as
+}
+
+func (as *apiStage) shouldListWithOneItem() *apiStage {
+	return as
+}
