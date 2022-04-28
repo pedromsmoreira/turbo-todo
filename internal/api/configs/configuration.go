@@ -1,14 +1,12 @@
 package configs
 
 import (
-	"embed"
+	"fmt"
 	"log"
 	"os"
 
 	"gopkg.in/yaml.v3"
 )
-
-var config embed.FS
 
 type Config struct {
 	Server    Server    `yaml:"server"`
@@ -30,6 +28,7 @@ type Database struct {
 	Host       string `yaml:"host"`
 	Username   string `yaml:"user"`
 	Password   string `yaml:"pass"`
+	DbName     string `yaml:"db_name"`
 	SkipSchema bool   `yaml:"skip_schema"`
 }
 
@@ -38,7 +37,8 @@ func NewConfigFromFile() *Config {
 }
 
 func readConfig() *Config {
-	yamlFile, err := os.Open("./api/configs/configuration.yaml")
+	dir, _ := os.Getwd()
+	yamlFile, err := os.Open(fmt.Sprintf("%s/internal/api/configs/configuration.yaml", dir))
 	if err != nil {
 		log.Fatalln(err)
 	}

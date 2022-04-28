@@ -10,4 +10,5 @@ database:
   host: "localhost:26257"
   user: "admin"
   pass: "password"
+  db_name: "turbotodo"
   skip_schema: false

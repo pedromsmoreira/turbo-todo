@@ -21,9 +21,7 @@ func main() {
 		log.Fatalf("error creating or updating the schema: %v", err)
 	}
 
-	server := &api.Server{
-		Cfg: cfg,
-	}
+	server := api.NewServer(cfg)
 
 	go func() {
 		if err := server.Start(); err != nil && err != http.ErrServerClosed {

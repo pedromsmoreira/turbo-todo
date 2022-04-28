@@ -1,11 +1,14 @@
 package api
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"testing"
+
+	"github.com/jackc/pgx/v4"
 
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
@@ -25,6 +28,7 @@ type apiStage struct {
 	host     string
 	http     *http.Client
 	response *http.Response
+	dbConn   *pgx.Conn
 }
 
 func (as *apiStage) and() *apiStage {
@@ -32,12 +36,23 @@ func (as *apiStage) and() *apiStage {
 }
 
 func newApiStage(t *testing.T, url string) (*apiStage, *apiStage, *apiStage) {
+	dbConn := getDbConn(t)
 	as := &apiStage{
-		t:    t,
-		host: fmt.Sprintf("http://%s", url),
+		t:      t,
+		host:   fmt.Sprintf("http://%s", url),
+		dbConn: dbConn,
 	}
 
 	return as, as, as
+}
+
+func getDbConn(t *testing.T) *pgx.Conn {
+	config, err := pgx.ParseConfig("postgresql://root@localhost:26257/defaultdb?sslmode=disable")
+	config.Database = "turbotodo"
+	require.Nil(t, err)
+	conn, err := pgx.ConnectConfig(context.Background(), config)
+	require.Nil(t, err)
+	return conn
 }
 
 func (as *apiStage) anHttpClientIsCreated() *apiStage {

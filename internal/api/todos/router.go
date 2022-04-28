@@ -1,9 +1,12 @@
 package todos
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/pedromsmoreira/turbo-todo/internal/api/configs"
+)
 
-func Routes(r *gin.Engine) {
-	todoRepo := NewInMemoryTodoRepository()
+func Routes(r *gin.Engine, cfg *configs.Config) {
+	todoRepo, _ := NewCockroachDbTodoRepository(cfg)
 	todoSvc := NewTodoService(todoRepo)
 	tc := NewTodoController(todoSvc)
 

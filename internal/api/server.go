@@ -28,18 +28,17 @@ func NewServer(cfg *configs.Config) *Server {
 func (s *Server) Start() error {
 	err := s.Router.SetTrustedProxies(nil)
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 
 	healthchecks.Routes(s.Router)
-	todos.Routes(s.Router)
+	todos.Routes(s.Router, s.Cfg)
 
-	srv := &http.Server{
+	s.server = &http.Server{
 		Addr:    fmt.Sprintf("%s:%s", s.Cfg.Server.Host, s.Cfg.Server.Port),
 		Handler: s.Router,
 	}
-
-	s.server = srv
 
 	return s.server.ListenAndServe()
 }
