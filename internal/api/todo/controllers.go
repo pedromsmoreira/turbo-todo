@@ -7,26 +7,26 @@ import (
 	"github.com/pedromsmoreira/turbo-todo/internal/api/apierrors"
 )
 
-type TodoController struct {
-	tcsvc *TodoService
+type Controller struct {
+	svc *TodoService
 }
 
-func NewTodoController(tcsvc *TodoService) *TodoController {
-	return &TodoController{
-		tcsvc: tcsvc,
+func NewTodoController(tcSvc *TodoService) *Controller {
+	return &Controller{
+		svc: tcSvc,
 	}
 }
-func (tc *TodoController) List(c *gin.Context) {
+func (tc *Controller) list(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
-		"message": "List",
+		"message": "list",
 	})
 }
 
-func (tc *TodoController) Get(c *gin.Context) {
+func (tc *Controller) get(c *gin.Context) {
 	id := c.Param("id")
 
-	todo, err := tc.tcsvc.Get(id)
+	todo, err := tc.svc.Get(id)
 
 	if err != nil {
 		pd := &apierrors.ProblemDetails{}
@@ -47,20 +47,20 @@ func (tc *TodoController) Get(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
-func (tc *TodoController) Create(c *gin.Context) {
+func (tc *Controller) create(c *gin.Context) {
 	c.JSON(http.StatusAccepted, gin.H{
-		"message": "Create",
+		"message": "create",
 	})
 }
 
-func (tc *TodoController) Update(c *gin.Context) {
+func (tc *Controller) update(c *gin.Context) {
 	c.JSON(http.StatusAccepted, gin.H{
-		"message": "Update",
+		"message": "update",
 	})
 }
 
-func (tc *TodoController) Delete(c *gin.Context) {
+func (tc *Controller) delete(c *gin.Context) {
 	c.JSON(http.StatusNoContent, gin.H{
-		"message": "Delete",
+		"message": "delete",
 	})
 }

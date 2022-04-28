@@ -1,14 +1,11 @@
 package configs
 
 import (
-	"embed"
 	"log"
 	"os"
 
 	"gopkg.in/yaml.v3"
 )
-
-var config embed.FS
 
 type Config struct {
 	Server struct {
@@ -20,8 +17,9 @@ type Config struct {
 		Port string `yaml:"port"`
 	} `yaml:"messaging"`
 	Database struct {
-		Username string `yaml:"user"`
-		Password string `yaml:"pass"`
+		Username   string `yaml:"user"`
+		Password   string `yaml:"pass"`
+		SkipSchema bool   `yaml:"skip_schema"`
 	} `yaml:"database"`
 }
 
@@ -31,7 +29,12 @@ func (conf *Config) ReadConfig() *Config {
 		log.Fatalln(err)
 	}
 
-	defer yamlFile.Close()
+	defer func(yamlFile *os.File) {
+		err := yamlFile.Close()
+		if err != nil {
+			log.Println("error closing configuration file")
+		}
+	}(yamlFile)
 
 	decoder := yaml.NewDecoder(yamlFile)
 	err = decoder.Decode(&conf)

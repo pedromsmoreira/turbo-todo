@@ -10,3 +10,4 @@ database:
   host: "localhost:26257"
   user: "admin"
   pass: "password"
+  skip_schema: false

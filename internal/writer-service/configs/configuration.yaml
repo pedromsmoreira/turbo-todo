@@ -9,3 +9,4 @@ messaging:
 database:
   user: "admin"
   pass: "password"
+  skip_schema: false

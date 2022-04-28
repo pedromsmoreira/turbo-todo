@@ -27,9 +27,10 @@ type Messaging struct {
 }
 
 type Database struct {
-	Host     string `yaml:"host"`
-	Username string `yaml:"user"`
-	Password string `yaml:"pass"`
+	Host       string `yaml:"host"`
+	Username   string `yaml:"user"`
+	Password   string `yaml:"pass"`
+	SkipSchema bool   `yaml:"skip_schema"`
 }
 
 func NewConfigFromFile() *Config {
@@ -42,7 +43,12 @@ func readConfig() *Config {
 		log.Fatalln(err)
 	}
 
-	defer yamlFile.Close()
+	defer func(yamlFile *os.File) {
+		err := yamlFile.Close()
+		if err != nil {
+			log.Println("error closing configuration file")
+		}
+	}(yamlFile)
 
 	conf := &Config{}
 	decoder := yaml.NewDecoder(yamlFile)

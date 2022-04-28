@@ -12,8 +12,12 @@ import (
 )
 
 func CreateSchema(cfg *configs.Config) error {
-	connstr := fmt.Sprintf("postgresql://root@%s/defaultdb?sslmode=disable", cfg.Database.Host)
-	config, err := pgx.ParseConfig(connstr)
+	if cfg.Database.SkipSchema {
+		log.Println("schema >>> schema creation skipped...")
+		return nil
+	}
+	connStr := fmt.Sprintf("postgresql://root@%s/defaultdb?sslmode=disable", cfg.Database.Host)
+	config, err := pgx.ParseConfig(connStr)
 	config.Database = "defaultdb"
 	if err != nil {
 		return errors.New(fmt.Sprintf("error schema configuration: %v", err))
