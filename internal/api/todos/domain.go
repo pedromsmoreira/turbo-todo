@@ -23,8 +23,8 @@ type attributes struct {
 // apply builder pattern
 func NewTodo() *todo {
 	id := uuid.New().String()
-	date := time.Now().String()
-	version := 1
+	date := time.Now().UTC().Format(time.RFC3339)
+	version := 0
 	a := &attributes{}
 
 	return &todo{

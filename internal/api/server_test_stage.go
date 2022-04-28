@@ -7,6 +7,11 @@ import (
 	"io/ioutil"
 	"net/http"
 	"testing"
+	"time"
+
+	"github.com/pedromsmoreira/turbo-todo/internal/api/todos"
+
+	"github.com/cockroachdb/cockroach-go/v2/crdb/crdbpgx"
 
 	"github.com/jackc/pgx/v4"
 
@@ -108,6 +113,28 @@ func (as *apiStage) returnsStatus(expStatus string) *apiStage {
 }
 
 func (as *apiStage) todoIsCreatedForId(id string) *apiStage {
+	td := todos.CreateTodoRequest{
+		Data: &todos.Dto{
+			DateCreated: time.Now().UTC().Format(time.RFC3339),
+			Version:     0,
+			Attributes: &todos.Attributes{
+				Title:   "New todo",
+				Status:  "done",
+				Content: "todo content",
+				Tags:    []string{"test", "new"},
+			},
+		},
+	}
+
+	err := crdbpgx.ExecuteTx(context.Background(), as.dbConn, pgx.TxOptions{}, func(tx pgx.Tx) error {
+		_, err := tx.Exec(context.Background(),
+			"INSERT INTO todos (id, title, datecreated, content, tags, status, version) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+			id, td.Data.Attributes.Title, td.Data.DateCreated, td.Data.Attributes.Content, td.Data.Attributes.Tags, td.Data.Attributes.Status, td.Data.Version)
+		require.Nil(as.t, err)
+		return nil
+	})
+
+	require.Nil(as.t, err)
 	return as
 }
 
