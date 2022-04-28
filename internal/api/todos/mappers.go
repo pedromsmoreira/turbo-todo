@@ -1,14 +1,14 @@
-package todo
+package todos
 
 import (
 	"errors"
 )
 
-func FromModelToDto(model *todo) (*TodoDto, error) {
+func FromModelToDto(model *todo) (*Dto, error) {
 	return nil, errors.New("mapping error from model to dto")
 }
 
-func FromDtoToModel(dto *TodoDto) (*todo, error) {
+func FromDtoToModel(dto *Dto) (*todo, error) {
 	return nil, errors.New("mapping error from dto to model")
 }
 

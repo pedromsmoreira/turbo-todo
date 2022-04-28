@@ -1,6 +1,7 @@
-package todo
+package todos
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -33,10 +34,23 @@ func (tc *Controller) get(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, pd)
 	}
 
+	if todo == nil {
+		pd := &apierrors.ProblemDetails{
+			Type:   "not_found",
+			Status: http.StatusNotFound,
+			Detail: fmt.Sprintf("resource with id: %s not found", id),
+		}
+		c.JSON(http.StatusNotFound, pd)
+	}
+
 	dto, err := FromModelToDto(todo)
 
 	if err != nil {
-		pd := &apierrors.ProblemDetails{}
+		pd := &apierrors.ProblemDetails{
+			Type:   "conversion",
+			Status: http.StatusInternalServerError,
+			Detail: "error converting model",
+		}
 		c.JSON(http.StatusInternalServerError, pd)
 	}
 

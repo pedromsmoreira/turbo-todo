@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   # api:
-  #   image: turbo-todo-api:${RELEASE_VERSION}
+  #   image: turbo-todos-api:${RELEASE_VERSION}
   #   build:
   #     context: .
   #     dockerfile: deploy/docker/Dockerfile
@@ -10,7 +10,7 @@ services:
   #     - "5000:5000"
 
   # events-listener:
-  #   image: turbo-todo-events-listener:${RELEASE_VERSION}
+  #   image: turbo-todos-events-listener:${RELEASE_VERSION}
   #   build:
   #     context: .
   #     dockerfile: deploy/docker/Dockerfile

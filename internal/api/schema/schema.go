@@ -61,7 +61,7 @@ func CreateSchema(cfg *configs.Config) error {
 	})
 
 	if err != nil {
-		return errors.New(fmt.Sprintf("error creating todo table: %v", err))
+		return errors.New(fmt.Sprintf("error creating todos table: %v", err))
 	}
 
 	return nil

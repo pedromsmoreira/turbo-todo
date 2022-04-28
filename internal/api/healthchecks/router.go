@@ -1,4 +1,4 @@
-package healthcheck
+package healthchecks
 
 import "github.com/gin-gonic/gin"
 

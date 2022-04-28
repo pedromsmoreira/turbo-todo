@@ -7,7 +7,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func TestHealthschecks(t *testing.T) {
+func TestHealthsChecks(t *testing.T) {
 	t.Run("status endpoint returns up", func(t *testing.T) {
 		given, when, then := newApiStage(t, "localhost:5000")
 
@@ -40,7 +40,7 @@ func TestHealthschecks(t *testing.T) {
 }
 
 func TestTodoEndpoints(t *testing.T) {
-	t.Run("list returns array with one todo item", func(t *testing.T) {
+	t.Run("list returns array with one todos item", func(t *testing.T) {
 		given, when, then := newApiStage(t, "localhost:5000")
 		id := uuid.New().String()
 

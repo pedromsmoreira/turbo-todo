@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/pedromsmoreira/turbo-todo/internal/api/todo"
+	"github.com/pedromsmoreira/turbo-todo/internal/api/todos"
 
 	"github.com/gin-gonic/gin"
 	"github.com/pedromsmoreira/turbo-todo/internal/api/configs"
-	"github.com/pedromsmoreira/turbo-todo/internal/api/healthcheck"
+	"github.com/pedromsmoreira/turbo-todo/internal/api/healthchecks"
 )
 
 type Server struct {
@@ -31,8 +31,8 @@ func (s *Server) Start() error {
 		return err
 	}
 
-	healthcheck.Routes(s.Router)
-	todo.Routes(s.Router)
+	healthchecks.Routes(s.Router)
+	todos.Routes(s.Router)
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf("%s:%s", s.Cfg.Server.Host, s.Cfg.Server.Port),

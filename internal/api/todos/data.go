@@ -1,4 +1,4 @@
-package todo
+package todos
 
 type todoData struct {
 	Id          string

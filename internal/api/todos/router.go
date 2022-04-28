@@ -1,4 +1,4 @@
-package todo
+package todos
 
 import "github.com/gin-gonic/gin"
 
